@@ -6,7 +6,7 @@
 /*   By: ncarob <ncarob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/03 17:52:26 by ncarob            #+#    #+#             */
-/*   Updated: 2022/02/04 19:27:32 by ncarob           ###   ########.fr       */
+/*   Updated: 2022/02/05 22:23:57 by ncarob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <fcntl.h>
 # include <errno.h>
+# include <stdio.h>
 # include <sys/wait.h>
 # include <sys/stat.h>
 # include <sys/types.h>
@@ -28,8 +29,14 @@
 
 extern char	**environ;
 
+typedef struct s_fifo
+{
+	int	fd[2];
+	int	end[2][2];
+}	t_fifo;
+
 char	**ft_get_commands(char **command_list, int total_commands);
-int		*ft_files_validation(char *filename1, char *filename2);
+t_fifo	*ft_files_validation(char *filename1, char *filename2);
 char	**ft_get_path_variables(char **envp);
 void	ft_clear_array(char **array);
 
