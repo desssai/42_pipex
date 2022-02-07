@@ -6,7 +6,7 @@
 /*   By: ncarob <ncarob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/03 17:52:26 by ncarob            #+#    #+#             */
-/*   Updated: 2022/02/05 22:23:57 by ncarob           ###   ########.fr       */
+/*   Updated: 2022/02/06 23:38:12 by ncarob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,17 @@ extern char	**environ;
 
 typedef struct s_fifo
 {
-	int	fd[2];
-	int	end[2][2];
+	int		curr;
+	int		fd[2];
+	char	*here_doc;
+	int		end[2][2];
+	int		total_commands;
+	char	**command_list;
 }	t_fifo;
 
 char	**ft_get_commands(char **command_list, int total_commands);
 t_fifo	*ft_files_validation(char *filename1, char *filename2);
-char	**ft_get_path_variables(char **envp);
+void	ft_get_path(char **envp, char **command);
 void	ft_clear_array(char **array);
 
 #endif

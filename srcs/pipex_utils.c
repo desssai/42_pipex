@@ -6,74 +6,71 @@
 /*   By: ncarob <ncarob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 17:31:15 by ncarob            #+#    #+#             */
-/*   Updated: 2022/02/05 23:29:13 by ncarob           ###   ########.fr       */
+/*   Updated: 2022/02/07 00:14:24 by ncarob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/pipex.h"
 
-t_fifo	*ft_files_validation(char *filename1, char *filename2)
+t_fifo	*ft_files_validation(int argc, char **argv)
 {
 	t_fifo	*fifo;
 
 	fifo = (t_fifo *)malloc(sizeof(t_fifo));
 	if (!fifo)
 		return (NULL);
-	fifo->fd[0] = open(filename1, O_RDONLY);
-	fifo->fd[1] = open(filename2, O_CREAT | O_RDWR | O_TRUNC, 0644);
-	if (fifo->fd[0] < 0)
-	{
-		ft_putendl_fd(FIL1_ERROR, 2);
-		return (NULL);
-	}
-	if (fifo->fd[1] < 0)
-	{
-		if (fifo->fd[0])
-			close(fifo->fd[0]);
-		ft_putendl_fd(FIL2_ERROR, 2);
-		return (NULL);
-	}
+	fifo->total_commands = argc - 2;
+	fifo->here_doc = NULL;
 	fifo->end[0][0] = -1;
 	fifo->end[0][1] = -1;
 	fifo->end[1][0] = -1;
 	fifo->end[1][1] = -1;
+	fifo->curr = 0;
+	if (!ft_strncmp("here_doc", argv[1], 9))
+	{
+		fifo->here_doc = argv[2];
+		fifo->fd[0] = -1;
+		fifo->total_commands--;
+	}
+	else
+		fifo->fd[0] = open(argv[1], O_RDONLY);
+	fifo->fd[1] = open(argv[argc - 1], O_CREAT | O_RDWR | O_TRUNC, 0644);
+	if ((!fifo->here_doc && fifo->fd[0] < 0) || fifo->fd[1] < 0
+		|| ft_get_command_list(fifo, argv))
+		ft_clear_fifo(fifo);
 	return (fifo);
 }
 
-char	**ft_get_path_variables(char **envp)
+void	ft_get_path(char **envp, char **command)
 {
-	char	**env_paths;
-	int		i;
+	char	*path;
+	char	*temp;
 
-	while (envp)
+	path = NULL;
+	while (*envp)
 	{
 		if (!ft_strncmp("PATH=", *envp, 5))
+		{
+			path = (*envp + 5);
 			break ;
+		}
 		envp++;
 	}
-	env_paths = ft_split((*envp + 5), ':');
-	i = -1;
-	while (env_paths[++i])
-		env_paths[i] = ft_strjoin(env_paths[i], "/", 0);
-	return (env_paths);
-}
-
-void	ft_clear_array(char **array)
-{
-	int	i;
-
-	i = -1;
-	while (array[++i])
+	if (!path)
+		*command = ft_strjoin("unset PATH;", *command, 0);
+	else
 	{
-		if (array[i])
-			free(array[i]);
+		temp = ft_strjoin("export PATH=", path, 0);
+		temp = ft_strjoin(temp, ";", 1);
+		*command = ft_strjoin(temp, *command, 1);
 	}
-	free(array);
-	array = NULL;
 }
 
-char	**ft_get_commands(char **command_list, int total_commands)
+int	ft_get_command_list(t_fifo *fifo, char **commands)
 {
-	command_list[total_commands - 1] = NULL;
-	return (command_list);
+	if (fifo->here_doc)
+		fifo->command_list = &commands[3];
+	else
+		fifo->command_list = &commands[2];
+	fifo->command_list[fifo->total_commands - 1] = NULL;
 }
