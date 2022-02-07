@@ -6,7 +6,7 @@
 /*   By: ncarob <ncarob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/03 17:52:26 by ncarob            #+#    #+#             */
-/*   Updated: 2022/02/06 23:38:12 by ncarob           ###   ########.fr       */
+/*   Updated: 2022/02/07 21:05:51 by ncarob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,10 @@
 # include <sys/wait.h>
 # include <sys/stat.h>
 # include <sys/types.h>
+# include "get_next_line.h"
 # include "../libft/libft.h"
 
+# define PIPE_ERROR "\033[31mError. Failed to create a pipe.\033[0m"
 # define FIL1_ERROR "\033[31mError. The file does not exist.\033[0m"
 # define FIL2_ERROR "\033[31mError. Could not open second file.\033[0m"
 # define CMDS_ERROR "\033[31mError. The entered command is invalid.\033[0m"
@@ -33,15 +35,15 @@ typedef struct s_fifo
 {
 	int		curr;
 	int		fd[2];
-	char	*here_doc;
 	int		end[2][2];
-	int		total_commands;
+	char	*here_doc;
 	char	**command_list;
+	int		total_commands;
 }	t_fifo;
 
-char	**ft_get_commands(char **command_list, int total_commands);
-t_fifo	*ft_files_validation(char *filename1, char *filename2);
 void	ft_get_path(char **envp, char **command);
+t_fifo	*ft_fifo_init(int argc, char **argv);
+void	ft_exec_command(char *full_command);
 void	ft_clear_array(char **array);
 
 #endif

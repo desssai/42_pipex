@@ -1,18 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ncarob <ncarob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/13 18:35:51 by ncarob            #+#    #+#             */
-/*   Updated: 2022/02/07 20:22:32 by ncarob           ###   ########.fr       */
+/*   Created: 2021/10/16 19:01:26 by ncarob            #+#    #+#             */
+/*   Updated: 2022/02/07 15:00:24 by ncarob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../includes/get_next_line.h"
 
-char	*ft_strjoin(char const *s1, char const *s2, int free1, int free2)
+char	*ft_strchr(const char *s, int c)
+{
+	int	i;
+
+	i = -1;
+	while (s[++i])
+		if (s[i] == (unsigned char)c)
+			return ((char *)(&s[i]));
+	return (NULL);
+}
+
+char	*add_buffer(char const *s1, char const *s2)
 {
 	int		i;
 	int		j;
@@ -33,9 +44,7 @@ char	*ft_strjoin(char const *s1, char const *s2, int free1, int free2)
 		str[i + j] = s2[j];
 	while (str && s1 && i-- > 0)
 		str[i] = s1[i];
-	if (free1 && s1)
+	if (s1)
 		free((void *)s1);
-	if (free2 && s1)
-		free((void *)s2);
 	return (str);
 }
