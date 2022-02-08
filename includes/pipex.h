@@ -6,7 +6,7 @@
 /*   By: ncarob <ncarob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/03 17:52:26 by ncarob            #+#    #+#             */
-/*   Updated: 2022/02/07 21:05:51 by ncarob           ###   ########.fr       */
+/*   Updated: 2022/02/08 12:35:08 by ncarob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@
 # define PIPE_ERROR "\033[31mError. Failed to create a pipe.\033[0m"
 # define FIL1_ERROR "\033[31mError. The file does not exist.\033[0m"
 # define FIL2_ERROR "\033[31mError. Could not open second file.\033[0m"
-# define CMDS_ERROR "\033[31mError. The entered command is invalid.\033[0m"
 # define FORK_ERROR "\033[31mError. Failed to create a new proccess.\033[0m"
 # define ARGS_ERROR "\033[31mError. The number of arguments is invalid.\033[0m"
 
