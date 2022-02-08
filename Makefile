@@ -5,7 +5,7 @@ SRCS	=	srcs/pipex_main.c \
 
 OBJS	=	$(SRCS:.c=.o)
 
-HEADS	=	./includes/pipex.h
+HEADS	=	./includes/
 
 NAME	=	pipex
 
@@ -17,10 +17,10 @@ FLAGS	=	-Wall -Werror -Wextra
 
 RM		=	rm -f
 
-%.o: %.c
-	$(GCC) $(FLAGS) -c $< -o $@ -I$(HEADS)
+%.o: %.c ./includes/get_next_line.h ./includes/pipex.h
+	$(GCC) $(FLAGS) -I$(HEADS) -c $< -o $@ 
 
-$(NAME): $(OBJS)
+$(NAME): $(OBJS) ./libft/libft.h
 	$(MAKE) -C libft all
 	$(GCC) $(FLAGS) $(OBJS) $(LNAME) -o $(NAME)
 

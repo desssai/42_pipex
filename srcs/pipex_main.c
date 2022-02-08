@@ -6,13 +6,13 @@
 /*   By: ncarob <ncarob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/03 17:51:27 by ncarob            #+#    #+#             */
-/*   Updated: 2022/02/08 14:41:26 by ncarob           ###   ########.fr       */
+/*   Updated: 2022/02/08 17:56:32 by ncarob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/pipex.h"
 
-void	ft_read_from_stdin(t_fifo *fifo)
+static void	ft_read_from_stdin(t_fifo *fifo)
 {
 	char	*line;
 
@@ -20,7 +20,8 @@ void	ft_read_from_stdin(t_fifo *fifo)
 	line = get_next_line(0);
 	while (line)
 	{
-		if (!ft_strncmp(line, fifo->here_doc, ft_strlen(fifo->here_doc)))
+		if (!ft_strncmp(line, fifo->here_doc, ft_strlen(fifo->here_doc))
+			&& line[ft_strlen(fifo->here_doc)] == '\n')
 		{
 			free(line);
 			break ;
@@ -36,7 +37,7 @@ void	ft_read_from_stdin(t_fifo *fifo)
 	exit(EXIT_SUCCESS);
 }
 
-void	ft_pipe_and_fork(t_fifo *fifo, int i, int *id)
+static void	ft_pipe_and_fork(t_fifo *fifo, int i, int *id)
 {
 	if (fifo && pipe(fifo->end[fifo->curr]) == -1)
 	{
@@ -55,7 +56,7 @@ void	ft_pipe_and_fork(t_fifo *fifo, int i, int *id)
 	}
 }
 
-void	ft_pipe_switch_exec(t_fifo *fifo, int i)
+static void	ft_pipe_switch_exec(t_fifo *fifo, int i)
 {
 	if (!i && !fifo->here_doc)
 		dup2(fifo->fd[0], STDIN_FILENO);
@@ -79,7 +80,7 @@ void	ft_pipe_switch_exec(t_fifo *fifo, int i)
 	ft_exec_command(fifo->command_list[i]);
 }
 
-void	ft_pipex(t_fifo *fifo)
+static void	ft_pipex(t_fifo *fifo)
 {
 	int		i;
 	pid_t	id;

@@ -47,7 +47,7 @@ OBJS	= $(SRCS:.c=.o)
 
 B_OBJS	= $(B_SRCS:.c=.o)
 
-HEADS	= libft.h
+HEADS	= ./
 
 NAME	= libft.a
 
@@ -59,8 +59,8 @@ AR		= ar -rcs
 
 RM		= rm -f
 
-.c.o:
-		$(GCC) -c $(FLAGS) $< -o ${<:.c=.o} -I$(HEADS)
+%.o: %.c ./libft.h
+	$(GCC) $(FLAGS) -I$(HEADS) -c $< -o $@ 
 
 $(NAME): $(OBJS)
 		$(AR) $(NAME) $(OBJS)
