@@ -40,7 +40,7 @@ It must take at least 4 arguments:
 The program works with the following redirection modes.
 | Mode | Despription |
 | ---- | ----------- |
-| << | Read from standard input until LIMITER. If here_doc keywoard is used for infile |
+| << | Read from standard input until LIMITER. If here_doc keywoard is used for the input_file. |
 | < | Read from an input file. |
 | \> | Erase the file's content and write to a file. |
 
