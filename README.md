@@ -37,13 +37,12 @@ It must take at least 4 arguments:
 - file1 and file2 are file names.
 - cmd1, cmd2 and cmdn are shell commands with their parameters.
 
-The program works with all the redirection modes.
+The program works with the following redirection modes.
 | Mode | Despription |
 | ---- | ----------- |
-| << | Read from standard input until LIMITER. |
+| << | Read from standard input until LIMITER. If here_doc keywoard is used for infile |
 | < | Read from an input file. |
 | \> | Erase the file's content and write to a file. |
-| \>> | Append to a file. |
 
 #### For example
 ```
