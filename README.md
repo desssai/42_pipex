@@ -9,8 +9,8 @@ or to an output file. If there is another command and the data was redirected to
 however, this time data is being read from pipe's another end and not from the input file.
 
 So as to handle errors that may arise during the execution of commands, a child-process is created for the execution of each command
-using `fork()`. Every command is executed inside the child-process, while the only parent-process waits for the child to either complete its task, 
-or to crash. Data is redirected between processes using pipes.
+using `fork()`. Every command is executed inside of a child-process, while the only parent-process waits for the child to either complete its task, 
+or finish with an error id. Data is redirected between processes using pipes.
 
 ## Usage
 
