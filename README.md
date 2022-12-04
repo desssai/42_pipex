@@ -28,6 +28,8 @@ The Makefile rules are as follows:
 | FCLEAN | Removes both the executable and object files. |
 | RE | Recompiles the program using **CLEAN** and **ALL** Makefile rules |
 
+https://user-images.githubusercontent.com/75085822/205517148-0e5ce5cd-d5ec-416e-9bce-ef83b5ae8f80.mp4
+
 ## Examples
 The program should be executed as follows:
 ```
