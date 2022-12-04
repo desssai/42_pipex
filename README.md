@@ -42,7 +42,7 @@ The program works with the following redirection modes.
 | ---- | ----------- |
 | << | Read from standard input until LIMITER. If here_doc keywoard is used for the input_file. |
 | < | Read from an input file. |
-| \> | Erase the file's content and write to a file. |
+| \> | Erase the file's content and write to an output file. |
 
 #### For example
 ```
