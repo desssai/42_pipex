@@ -18,6 +18,8 @@ or finish with an error id. Data is redirected between processes using pipes.
 2. Compile the program using Makefile.
 3. Launch the program. 
 
+![Building the program](https://user-images.githubusercontent.com/75085822/205517493-24891554-5562-458c-9277-e9037b7e5ae8.gif)
+
 The Makefile rules are as follows:
 
 | Rule | Despription |
@@ -28,8 +30,6 @@ The Makefile rules are as follows:
 | FCLEAN | Removes both the executable and object files. |
 | RE | Recompiles the program using **CLEAN** and **ALL** Makefile rules |
 
-https://user-images.githubusercontent.com/75085822/205517148-0e5ce5cd-d5ec-416e-9bce-ef83b5ae8f80.mp4
-
 ## Examples
 The program should be executed as follows:
 ```
@@ -38,6 +38,8 @@ The program should be executed as follows:
 It must take at least 4 arguments:
 - file1 and file2 are file names.
 - cmd1, cmd2 and cmdn are shell commands with their parameters.
+
+![Usage example](https://user-images.githubusercontent.com/75085822/205517787-65784090-5cdc-40f5-a2ff-78df1a94bc15.gif)
 
 The program works with the following redirection modes.
 | Mode | Despription |
